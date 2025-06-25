@@ -1,0 +1,15 @@
+#first setup your nfs server with share directory
+#setup your nfs-csi-driver using github of offical kubernetes repo
+apiVersion: storage.k8s.io/v1
+kind: storageClass
+metadata:
+  name: central-storage-fs
+provisioner: nfs.csi.k8s.io
+reclaimPolicy: Delete
+volumeBindingMode: waitForFirstConsumer
+allowVolumeExpansion: true
+mountOptions:
+  - nfsvers=4.1
+parameters:
+  server: 172.31.81.13
+  share: /container-data
